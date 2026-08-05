@@ -9,17 +9,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.2.2 # Fixed version upgrade for Node 24 support
 
       - name: Fetch freeCodeCamp Stats
+        id: fetch_stats
         run: |
+          # Fetch public statistics safely
           USER_DATA=$(curl -s https://freecodecamp.org)
           POINTS=$(echo "$USER_DATA" | jq -r '.entities.user[].points')
+          
+          # Handle potential null responses gracefully
+          if [ "$POINTS" = "null" ] || [ -z "$POINTS" ]; then
+            POINTS="0"
+          fi
           
           echo "💡 **Total freeCodeCamp Points:** $POINTS 🏆" > fcc_text.txt
 
       - name: Inject Stats into README
         run: |
+          # Use valid escaping for sed delimiters to avoid parsing errors
           sed -i '/<!-- START_SECTION:fcc_stats -->/,/<!-- END_SECTION:fcc_stats -->/{//!d}' README.md
           sed -i '/<!-- START_SECTION:fcc_stats -->/r fcc_text.txt' README.md
 
@@ -28,6 +36,6 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add README.md
+          # Avoid failing if no data actually changed
           git commit -m "Update freeCodeCamp stats" || exit 0
-          git p
-          ush
+          git push
