@@ -5,17 +5,22 @@ Hi there! I'm Nikka 👋 ✨<br><br>🎨 UI/UX Designer & Graphic Artist | 💻 
 [![Instagram](https://img.shields.io/badge/Instagram-%23E4405F.svg?logo=Instagram&logoColor=white)](https://instagram.com/ezranyx__) [![Codepen](https://img.shields.io/badge/Codepen-000000?logo=codepen&logoColor=white)](https://codepen.io/Nikka-Nicdao) [![email](https://img.shields.io/badge/Email-D14836?logo=gmail&logoColor=white)](mailto:nicdaonikka75@gmail.com) 
 
 ---
-
-## 🎓 freeCodeCamp Progress:
+## 🎓 freeCodeCamp Certifications & Progress
 <p align="left">
+  <!-- Profile Link Badge -->
   <a href="https://freecodecamp.org" target="_blank">
     <img src="https://shields.io" alt="freeCodeCamp Profile" />
   </a>
 </p>
 
-<!-- START_SECTION:fcc_stats -->
-### 🏆 Live stats will appear here shortly!
-<!-- END_SECTION:fcc_stats -->
+### 🏆 Earned Credentials
+
+| Certificate Name | Status | Verified Link |
+| :--- | :---: | :---: |
+| 💻 Responsive Web Design | ✅ Completed | [View Credential](https://freecodecamp.org) |
+| ⚡ JavaScript Algorithms & Data Structures | ⏳ In Progress | [Profile Timeline](https://freecodecamp.org) |
+| 🎨 Front End Development Libraries | ⏳ In Progress | [Profile Timeline](https://freecodecamp.org) |
+
 
 ---
 
