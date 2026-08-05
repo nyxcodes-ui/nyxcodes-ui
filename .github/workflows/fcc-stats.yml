@@ -1,0 +1,33 @@
+name: Update freeCodeCamp Stats
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Fetch freeCodeCamp Stats
+        run: |
+          USER_DATA=$(curl -s https://freecodecamp.org)
+          POINTS=$(echo "$USER_DATA" | jq -r '.entities.user[].points')
+          
+          echo "💡 **Total freeCodeCamp Points:** $POINTS 🏆" > fcc_text.txt
+
+      - name: Inject Stats into README
+        run: |
+          sed -i '/<!-- START_SECTION:fcc_stats -->/,/<!-- END_SECTION:fcc_stats -->/{//!d}' README.md
+          sed -i '/<!-- START_SECTION:fcc_stats -->/r fcc_text.txt' README.md
+
+      - name: Commit changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add README.md
+          git commit -m "Update freeCodeCamp stats" || exit 0
+          git p
+          ush
