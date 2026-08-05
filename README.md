@@ -8,7 +8,7 @@ Hi there! I'm Nikka 👋 ✨<br><br>🎨 UI/UX Designer & Graphic Artist | 💻 
 ## 🎓 freeCodeCamp Certifications & Progress
 <p align="left">
   <!-- Profile Link Badge -->
-  <a href="https://freecodecamp.org" target="_blank">
+  <a href="https://freecodecamp.org/nyxcodes-ui" target="_blank">
     <img src="https://shields.io" alt="freeCodeCamp Profile" />
   </a>
 </p>
