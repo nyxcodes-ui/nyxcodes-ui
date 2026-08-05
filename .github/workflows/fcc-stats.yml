@@ -9,25 +9,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v4.2.2 # Fixed version upgrade for Node 24 support
+        uses: actions/checkout@v4.2.2
 
       - name: Fetch freeCodeCamp Stats
-        id: fetch_stats
         run: |
-          # Fetch public statistics safely
+          # Fetch public data
           USER_DATA=$(curl -s https://freecodecamp.org)
-          POINTS=$(echo "$USER_DATA" | jq -r '.entities.user[].points')
           
-          # Handle potential null responses gracefully
-          if [ "$POINTS" = "null" ] || [ -z "$POINTS" ]; then
-            POINTS="0"
+          # Extract points safely using jq
+          POINTS=$(echo "$USER_DATA" | jq -r '.entities.user["nyxcodes-ui"].points // .entities.user[].points' 2>/dev/null)
+          
+          # Fallback if points are missing or profile is private
+          if [ -z "$POINTS" ] || [ "$POINTS" = "null" ]; then
+            echo "⚠️ Profile might be private! Setting score to 0."
+            POINTS="0 (Set fCC Profile to Public)"
           fi
           
           echo "💡 **Total freeCodeCamp Points:** $POINTS 🏆" > fcc_text.txt
 
       - name: Inject Stats into README
         run: |
-          # Use valid escaping for sed delimiters to avoid parsing errors
           sed -i '/<!-- START_SECTION:fcc_stats -->/,/<!-- END_SECTION:fcc_stats -->/{//!d}' README.md
           sed -i '/<!-- START_SECTION:fcc_stats -->/r fcc_text.txt' README.md
 
@@ -36,6 +37,6 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add README.md
-          # Avoid failing if no data actually changed
           git commit -m "Update freeCodeCamp stats" || exit 0
-          git push
+          git 
+          push
